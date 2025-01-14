@@ -13,6 +13,9 @@ class Program
             "M - Display mean of the numbers",
             "S - Display the smallest number",
             "L - Display the largest number",
+            "C - Clear the numbers",
+            "F - Search for the value of the specified number",
+            "X - Display the number of occurrences of the specified number",
             "Q - Quit"
         };
 
@@ -23,8 +26,9 @@ class Program
             Console.WriteLine();
 
             Console.Write("Enter your choice: ");
+
             char choice = Console.ReadLine().ToUpper()[0];
-            
+
             Console.WriteLine();
 
             switch (choice)
@@ -81,10 +85,69 @@ class Program
                     Console.WriteLine($"The mean of the numbers is: {mean}");
                     break;
                 case 'S':
-                    Console.WriteLine("Your Choice is  S");
+                    if (numbers.Count == 0)
+                    {
+                        Console.WriteLine("Unable to calculate the mean - no data.");
+                    }
+
+                    int smallest = numbers[0];
+                    for (int i = 1; i < numbers.Count; i++)
+                    {
+                        if (numbers[i] < smallest)
+                            smallest = numbers[i];
+                    }
+
+                    Console.WriteLine($"The smallest number in the list is: {smallest}");
                     break;
                 case 'L':
-                    Console.WriteLine("Your Choice is  L");
+                    if (numbers.Count == 0)
+                    {
+                        Console.WriteLine("Unable to calculate the mean - no data.");
+                    }
+
+                    int largest = numbers[0];
+                    for (int i = 1; i < numbers.Count; i++)
+                    {
+                        if (numbers[i] > largest)
+                            largest = numbers[i];
+                    }
+
+                    Console.WriteLine($"The largest number in the list is: {largest}");
+                    break;
+                case 'C':
+                    numbers.Clear();
+                    Console.WriteLine("The list has been cleared.");
+                    break;
+                case 'F':
+                    Console.Write("Enter a number to search for: ");
+                    int searchNum = Convert.ToInt32(Console.ReadLine());
+
+                    bool found = false;
+                    for (int i = 0; i < numbers.Count; i++)
+                    {
+                        if (numbers[i] == searchNum)
+                        {
+                            Console.WriteLine($"{searchNum} is found in the list.");
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                        Console.WriteLine($"{searchNum} is not found in the list.");
+                    break;
+                case 'X':
+                    Console.Write("Enter a number to search for occurrences: ");
+                    int countNum = Convert.ToInt32(Console.ReadLine());
+
+                    int occurrences = 0;
+                    for (int i = 0; i < numbers.Count; i++)
+                    {
+                        if (numbers[i] == countNum)
+                            occurrences++;
+                    }
+
+                    Console.WriteLine($"{countNum} occurs {occurrences} times in the list.");
                     break;
                 case 'Q':
                     Console.WriteLine("GoodBy");
